@@ -1,0 +1,55 @@
+{
+  "folders": [],
+  "settings": {},
+  "vetur.validation.template": false,
+  "editor.formatOnSave": true,
+  "editor.formatOnSaveMode": "file",
+  "editor.formatOnPaste": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "vetur.format.defaultFormatter.html": "prettier",
+  "vetur.format.defaultFormatter.css": "prettier",
+  "vetur.format.defaultFormatter.postcss": "prettier",
+  "vetur.format.defaultFormatter.scss": "prettier",
+  "vetur.format.defaultFormatter.less": "prettier",
+  "vetur.format.defaultFormatter.stylus": "stylus-supremacy",
+  "vetur.format.defaultFormatter.js": "prettier",
+  "vetur.format.defaultFormatter.ts": "prettier",
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "editor.codeActionsOnSave": {
+    "source.fixAll": true
+  },
+  "eslint.autoFixOnSave": true,
+  "editor.tabSize": 2,
+  "prettier.tabWidth": 2,
+  "editor.detectIndentation": false,
+  "editor.insertSpaces": true,
+  "vetur.format.defaultFormatterOptions": {
+    "prettier": {
+      "singleQuote": true,
+      "arrowParens": "avoid",
+      "printWidth": 200
+    }
+  },
+  "prettier": {
+    "singleQuote": true,
+    "arrowParens": "avoid",
+    "printWidth": 200
+  },
+  "[json]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "plantuml.server": "http://127.0.0.1:8081",
+  "plantuml.render": "PlantUMLServer",
+  "plantuml.diagramsRoot": "docs",
+  "plantuml.exportOutDir": "docs",
+  "plantuml.exportFormat": "svg",
+  "plantuml.exportSubFolder": true
+}

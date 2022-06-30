@@ -1,0 +1,9 @@
+FROM scholtz2/ubuntu-dev-base:1.0.0-stable
+
+WORKDIR /usr/src/app
+COPY package.json .
+RUN npm install
+RUN npm fund
+CMD [ "/bin/bash", "./run.sh" ]
+COPY . .
+#RUN npm run test
