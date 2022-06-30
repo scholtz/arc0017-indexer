@@ -1,11 +1,11 @@
-name: Build and Deploy Soldier - BETA
+name: Build and Deploy
 on:
   push:
     branches:
-      - beta
+      - master
 jobs:
   deploy:
-    name: "Deploy to beta"
+    name: "Deploy master"
     runs-on: ubuntu-latest
     steps:
       - name: Configure SSH
