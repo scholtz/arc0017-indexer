@@ -32,7 +32,7 @@ const main = async () => {
     let saveRound = true;
     const checkOneBlock = false;
     if (checkOneBlock) saveRound = false;
-    //round = 15986363;
+    //round = 22582912;
     logger.debug(`starting at round ${round}`);
     logger.debug(`before getAlgodClient`);
     const client = getAlgodClient();
@@ -88,13 +88,13 @@ const main = async () => {
             const sender = encodeAddress(new Uint8Array(stxn.txn.snd));
             if (stxn.lsig) {
               const lsigBuffer = stxn.lsig.l as Buffer;
+              if (!lsigBuffer || lsigBuffer.length < 100) continue;
               const lsig = lsigBuffer.toString('hex').toString();
-
               const ver = lsig.substring(8, 14);
               const sellerStart = 16;
               const seller = lsig.substring(sellerStart, sellerStart + 64);
               const numStart = 14 + 64 + 6;
-              const priceStr = lsig.substring(numStart, numStart + 30);
+              const priceStr = lsig.substring(numStart, numStart + 60);
               //console.log(priceStr);
               const price = getNumber(priceStr);
               const multiplierStr = priceStr.substring(price.len * 2);
@@ -105,7 +105,9 @@ const main = async () => {
               const assetBuy = getNumber(assetBuyStr);
               const checksum = assetBuyStr.substring(assetBuy.len * 2, assetBuy.len * 2 + 12);
               //console.log('checksum', checksum);
+              //console.log('checksum', checksum, assetBuyStr);
               if (checksum == '000102030405') {
+                console.log('checksum', checksum);
                 // 05260203a0b00120309c14550940c1fcdb187fd0148631e734f60845497d4cec4813bc80473a4b 22 20 0b 03 64 03 04    00 01 02 03 04 05
                 // 0309c14550940c1fcdb187fd0148631e734f60845497d4cec4813bc80473a4b2
                 // 05260203a0b00120309c14550940c1fcdb187fd0148631e734f60845497d4cec4813bc80473a4b 22 20 0b b9 60 01 03 04 00 01 02 03 04 05 904e33002032031244320
@@ -122,6 +124,7 @@ const main = async () => {
                   lsig: lsig,
                   env: env.id,
                 };
+                //console.log('c', c);
                 if (!map.get(c.address)) {
                   await insertEscrow(c);
                   map = map.set(c.address, c);
@@ -161,7 +164,7 @@ const main = async () => {
             const isClose = stxn.txn.aclose || stxn.txn.close;
             const senderIsEscrow = !!map.get(sender);
             const receiverIsEscrow = !!map.get(receiver);
-            console.log('senderIsEscrow,receiverIsEscrow', senderIsEscrow, receiverIsEscrow, stxn);
+            //console.log('senderIsEscrow,receiverIsEscrow', senderIsEscrow, receiverIsEscrow, stxn);
             const escrow = senderIsEscrow ? map.get(sender) : map.get(receiver);
             if (!senderIsEscrow && !receiverIsEscrow) continue;
 
