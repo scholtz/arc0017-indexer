@@ -17,6 +17,15 @@ import insertTransaction, { InsertTransaction } from './repository/insertTransac
 import upsertOffer from './repository/upsertOffer';
 import upsertEnvironment from './repository/uppsertEnvironment';
 import upsertBid from './repository/upsertBid';
+import upsertTrade from './repository/usertTrade';
+
+interface Group2Txs {
+  [key: string]: TxId2Tx;
+}
+interface TxId2Tx {
+  [key: string]: TxId2Tx;
+}
+
 const main = async () => {
   const logger = getLogger();
   try {
@@ -73,12 +82,14 @@ const main = async () => {
       //logger.debug(`after block ${confirmedRound}`);
       //console.log('block.block', block.block);
       //console.log(JSON.stringify(block.block));
+
       if (block.block.txns) {
         let countProcessedTxns = 0;
         //console.log('block.block.txns', block.block.txns.length);
 
         let intraround = -1;
         console.log('finding escrows');
+        const txByGroup: Group2Txs = {};
         for (const stxn of block.block.txns) {
           // first find all escrow addresses
           intraround++;
@@ -136,6 +147,12 @@ const main = async () => {
                 }
               }
             }
+            if (stxn.txn && stxn.txn.grp) {
+              const grp = Buffer.from(stxn.txn.grp).toString('base64');
+              if (!txByGroup[grp]) txByGroup[grp] = {};
+              const txId = computeTransactionId(block.block.gh, block.block.gen, stxn);
+              txByGroup[grp][txId] = stxn;
+            }
           } catch (e) {
             //map = await getAllEscrows();
             logger.error(e);
@@ -170,8 +187,9 @@ const main = async () => {
 
             if (stxn.txn.type == 'axfer' && (stxn.txn.aamt > 0 || isClose)) {
               if (senderIsEscrow) {
+                const txId = computeTransactionId(block.block.gh, block.block.gen, stxn);
                 var insertTx: InsertTransaction = {
-                  txId: computeTransactionId(block.block.gh, block.block.gen, stxn),
+                  txId: txId,
                   account: sender,
                   type: isClose ? 4 : 2, //from escrow
                   asset: stxn.txn.xaid,
@@ -184,11 +202,22 @@ const main = async () => {
                 const insertTxResult = await insertTransaction(insertTx);
                 await upsertOffer(insertTx, insertTxResult, escrow);
                 await upsertBid(insertTx, insertTxResult, escrow);
+                const grp = Buffer.from(stxn.txn.grp).toString('base64');
+                delete txByGroup[grp][txId];
+                console.log('Object.values(txByGroup[grp]).length', Object.values(txByGroup[grp]).length);
+                if (Object.values(txByGroup[grp]).length == 1) {
+                  // other tx is the payment
+                  // trade
+                  const tx2 = Object.values(txByGroup[grp])[0];
+                  const tx2Id = computeTransactionId(block.block.gh, block.block.gen, tx2);
+                  await upsertTrade(insertTx, block.block.ts, tx2Id, tx2, escrow);
+                }
                 countInsertedTxs++;
               }
               if (receiverIsEscrow) {
+                const txId = computeTransactionId(block.block.gh, block.block.gen, stxn);
                 var insertTx: InsertTransaction = {
-                  txId: computeTransactionId(block.block.gh, block.block.gen, stxn),
+                  txId: txId,
                   account: receiver,
                   type: isClose ? 3 : 1, //to escrow
                   asset: stxn.txn.xaid,
@@ -201,12 +230,24 @@ const main = async () => {
                 const insertTxResult = await insertTransaction(insertTx);
                 await upsertOffer(insertTx, insertTxResult, escrow);
                 await upsertBid(insertTx, insertTxResult, escrow);
+                const grp = Buffer.from(stxn.txn.grp).toString('base64');
+                delete txByGroup[grp][txId];
+                console.log('Object.values(txByGroup[grp]).length', Object.values(txByGroup[grp]).length);
+
+                if (Object.values(txByGroup[grp]).length == 1) {
+                  // other tx is the payment
+                  // trade
+                  const tx2 = Object.values(txByGroup[grp])[0];
+                  const tx2Id = computeTransactionId(block.block.gh, block.block.gen, tx2);
+                  await upsertTrade(insertTx, block.block.ts, tx2Id, tx2, escrow);
+                }
                 countInsertedTxs++;
               }
             } else if (stxn.txn.type == 'pay' && (stxn.txn.amt > 0 || isClose)) {
               if (senderIsEscrow) {
+                const txId = computeTransactionId(block.block.gh, block.block.gen, stxn);
                 var insertTx: InsertTransaction = {
-                  txId: computeTransactionId(block.block.gh, block.block.gen, stxn),
+                  txId: txId,
                   account: sender,
                   type: isClose ? 4 : 2, //from escrow
                   asset: 0,
@@ -219,11 +260,23 @@ const main = async () => {
                 const insertTxResult = await insertTransaction(insertTx);
                 await upsertOffer(insertTx, insertTxResult, escrow);
                 await upsertBid(insertTx, insertTxResult, escrow);
+                const grp = Buffer.from(stxn.txn.grp).toString('base64');
+                delete txByGroup[grp][txId];
+                console.log('Object.values(txByGroup[grp]).length', Object.values(txByGroup[grp]).length);
+
+                if (Object.values(txByGroup[grp]).length == 1) {
+                  // other tx is the payment
+                  // trade
+                  const tx2 = Object.values(txByGroup[grp])[0];
+                  const tx2Id = computeTransactionId(block.block.gh, block.block.gen, tx2);
+                  await upsertTrade(insertTx, block.block.ts, tx2Id, tx2, escrow);
+                }
                 countInsertedTxs++;
               }
               if (receiverIsEscrow) {
+                const txId = computeTransactionId(block.block.gh, block.block.gen, stxn);
                 var insertTx: InsertTransaction = {
-                  txId: computeTransactionId(block.block.gh, block.block.gen, stxn),
+                  txId: txId,
                   account: receiver,
                   type: isClose ? 3 : 1, //to escrow
                   asset: 0,
@@ -236,6 +289,17 @@ const main = async () => {
                 const insertTxResult = await insertTransaction(insertTx);
                 await upsertOffer(insertTx, insertTxResult, escrow);
                 await upsertBid(insertTx, insertTxResult, escrow);
+                const grp = Buffer.from(stxn.txn.grp).toString('base64');
+                delete txByGroup[grp][txId];
+                console.log('Object.values(txByGroup[grp]).length', Object.values(txByGroup[grp]).length);
+
+                if (Object.values(txByGroup[grp]).length == 1) {
+                  // other tx is the payment
+                  // trade
+                  const tx2 = Object.values(txByGroup[grp])[0];
+                  const tx2Id = computeTransactionId(block.block.gh, block.block.gen, tx2);
+                  await upsertTrade(insertTx, block.block.ts, tx2Id, tx2, escrow);
+                }
                 countInsertedTxs++;
               }
             }

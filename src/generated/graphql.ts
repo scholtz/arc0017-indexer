@@ -2985,8 +2985,16 @@ export type Timestamptz_Comparison_Exp = {
 export type Trade = {
   __typename?: 'trade';
   amount: Scalars['numeric'];
+  amountinverted: Scalars['numeric'];
+  asabuy: Scalars['bigint'];
+  asasell: Scalars['bigint'];
+  buyquantity: Scalars['bigint'];
   id: Scalars['String'];
   price: Scalars['numeric'];
+  priceinverted: Scalars['numeric'];
+  sellpricebase: Scalars['bigint'];
+  sellpricemultiplier: Scalars['bigint'];
+  sellquantity: Scalars['bigint'];
   time: Scalars['timestamptz'];
 };
 
@@ -3024,7 +3032,15 @@ export type Trade_Aggregate_FieldsCountArgs = {
 export type Trade_Avg_Fields = {
   __typename?: 'trade_avg_fields';
   amount?: Maybe<Scalars['Float']>;
+  amountinverted?: Maybe<Scalars['Float']>;
+  asabuy?: Maybe<Scalars['Float']>;
+  asasell?: Maybe<Scalars['Float']>;
+  buyquantity?: Maybe<Scalars['Float']>;
   price?: Maybe<Scalars['Float']>;
+  priceinverted?: Maybe<Scalars['Float']>;
+  sellpricebase?: Maybe<Scalars['Float']>;
+  sellpricemultiplier?: Maybe<Scalars['Float']>;
+  sellquantity?: Maybe<Scalars['Float']>;
 };
 
 /** Boolean expression to filter rows from the table "trade". All fields are combined with a logical 'AND'. */
@@ -3033,8 +3049,16 @@ export type Trade_Bool_Exp = {
   _not?: InputMaybe<Trade_Bool_Exp>;
   _or?: InputMaybe<Array<Trade_Bool_Exp>>;
   amount?: InputMaybe<Numeric_Comparison_Exp>;
+  amountinverted?: InputMaybe<Numeric_Comparison_Exp>;
+  asabuy?: InputMaybe<Bigint_Comparison_Exp>;
+  asasell?: InputMaybe<Bigint_Comparison_Exp>;
+  buyquantity?: InputMaybe<Bigint_Comparison_Exp>;
   id?: InputMaybe<String_Comparison_Exp>;
   price?: InputMaybe<Numeric_Comparison_Exp>;
+  priceinverted?: InputMaybe<Numeric_Comparison_Exp>;
+  sellpricebase?: InputMaybe<Bigint_Comparison_Exp>;
+  sellpricemultiplier?: InputMaybe<Bigint_Comparison_Exp>;
+  sellquantity?: InputMaybe<Bigint_Comparison_Exp>;
   time?: InputMaybe<Timestamptz_Comparison_Exp>;
 };
 
@@ -3047,14 +3071,30 @@ export enum Trade_Constraint {
 /** input type for incrementing numeric columns in table "trade" */
 export type Trade_Inc_Input = {
   amount?: InputMaybe<Scalars['numeric']>;
+  amountinverted?: InputMaybe<Scalars['numeric']>;
+  asabuy?: InputMaybe<Scalars['bigint']>;
+  asasell?: InputMaybe<Scalars['bigint']>;
+  buyquantity?: InputMaybe<Scalars['bigint']>;
   price?: InputMaybe<Scalars['numeric']>;
+  priceinverted?: InputMaybe<Scalars['numeric']>;
+  sellpricebase?: InputMaybe<Scalars['bigint']>;
+  sellpricemultiplier?: InputMaybe<Scalars['bigint']>;
+  sellquantity?: InputMaybe<Scalars['bigint']>;
 };
 
 /** input type for inserting data into table "trade" */
 export type Trade_Insert_Input = {
   amount?: InputMaybe<Scalars['numeric']>;
+  amountinverted?: InputMaybe<Scalars['numeric']>;
+  asabuy?: InputMaybe<Scalars['bigint']>;
+  asasell?: InputMaybe<Scalars['bigint']>;
+  buyquantity?: InputMaybe<Scalars['bigint']>;
   id?: InputMaybe<Scalars['String']>;
   price?: InputMaybe<Scalars['numeric']>;
+  priceinverted?: InputMaybe<Scalars['numeric']>;
+  sellpricebase?: InputMaybe<Scalars['bigint']>;
+  sellpricemultiplier?: InputMaybe<Scalars['bigint']>;
+  sellquantity?: InputMaybe<Scalars['bigint']>;
   time?: InputMaybe<Scalars['timestamptz']>;
 };
 
@@ -3062,8 +3102,16 @@ export type Trade_Insert_Input = {
 export type Trade_Max_Fields = {
   __typename?: 'trade_max_fields';
   amount?: Maybe<Scalars['numeric']>;
+  amountinverted?: Maybe<Scalars['numeric']>;
+  asabuy?: Maybe<Scalars['bigint']>;
+  asasell?: Maybe<Scalars['bigint']>;
+  buyquantity?: Maybe<Scalars['bigint']>;
   id?: Maybe<Scalars['String']>;
   price?: Maybe<Scalars['numeric']>;
+  priceinverted?: Maybe<Scalars['numeric']>;
+  sellpricebase?: Maybe<Scalars['bigint']>;
+  sellpricemultiplier?: Maybe<Scalars['bigint']>;
+  sellquantity?: Maybe<Scalars['bigint']>;
   time?: Maybe<Scalars['timestamptz']>;
 };
 
@@ -3071,8 +3119,16 @@ export type Trade_Max_Fields = {
 export type Trade_Min_Fields = {
   __typename?: 'trade_min_fields';
   amount?: Maybe<Scalars['numeric']>;
+  amountinverted?: Maybe<Scalars['numeric']>;
+  asabuy?: Maybe<Scalars['bigint']>;
+  asasell?: Maybe<Scalars['bigint']>;
+  buyquantity?: Maybe<Scalars['bigint']>;
   id?: Maybe<Scalars['String']>;
   price?: Maybe<Scalars['numeric']>;
+  priceinverted?: Maybe<Scalars['numeric']>;
+  sellpricebase?: Maybe<Scalars['bigint']>;
+  sellpricemultiplier?: Maybe<Scalars['bigint']>;
+  sellquantity?: Maybe<Scalars['bigint']>;
   time?: Maybe<Scalars['timestamptz']>;
 };
 
@@ -3095,8 +3151,16 @@ export type Trade_On_Conflict = {
 /** Ordering options when selecting data from "trade". */
 export type Trade_Order_By = {
   amount?: InputMaybe<Order_By>;
+  amountinverted?: InputMaybe<Order_By>;
+  asabuy?: InputMaybe<Order_By>;
+  asasell?: InputMaybe<Order_By>;
+  buyquantity?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   price?: InputMaybe<Order_By>;
+  priceinverted?: InputMaybe<Order_By>;
+  sellpricebase?: InputMaybe<Order_By>;
+  sellpricemultiplier?: InputMaybe<Order_By>;
+  sellquantity?: InputMaybe<Order_By>;
   time?: InputMaybe<Order_By>;
 };
 
@@ -3110,9 +3174,25 @@ export enum Trade_Select_Column {
   /** column name */
   Amount = 'amount',
   /** column name */
+  Amountinverted = 'amountinverted',
+  /** column name */
+  Asabuy = 'asabuy',
+  /** column name */
+  Asasell = 'asasell',
+  /** column name */
+  Buyquantity = 'buyquantity',
+  /** column name */
   Id = 'id',
   /** column name */
   Price = 'price',
+  /** column name */
+  Priceinverted = 'priceinverted',
+  /** column name */
+  Sellpricebase = 'sellpricebase',
+  /** column name */
+  Sellpricemultiplier = 'sellpricemultiplier',
+  /** column name */
+  Sellquantity = 'sellquantity',
   /** column name */
   Time = 'time'
 }
@@ -3120,8 +3200,16 @@ export enum Trade_Select_Column {
 /** input type for updating data in table "trade" */
 export type Trade_Set_Input = {
   amount?: InputMaybe<Scalars['numeric']>;
+  amountinverted?: InputMaybe<Scalars['numeric']>;
+  asabuy?: InputMaybe<Scalars['bigint']>;
+  asasell?: InputMaybe<Scalars['bigint']>;
+  buyquantity?: InputMaybe<Scalars['bigint']>;
   id?: InputMaybe<Scalars['String']>;
   price?: InputMaybe<Scalars['numeric']>;
+  priceinverted?: InputMaybe<Scalars['numeric']>;
+  sellpricebase?: InputMaybe<Scalars['bigint']>;
+  sellpricemultiplier?: InputMaybe<Scalars['bigint']>;
+  sellquantity?: InputMaybe<Scalars['bigint']>;
   time?: InputMaybe<Scalars['timestamptz']>;
 };
 
@@ -3129,28 +3217,60 @@ export type Trade_Set_Input = {
 export type Trade_Stddev_Fields = {
   __typename?: 'trade_stddev_fields';
   amount?: Maybe<Scalars['Float']>;
+  amountinverted?: Maybe<Scalars['Float']>;
+  asabuy?: Maybe<Scalars['Float']>;
+  asasell?: Maybe<Scalars['Float']>;
+  buyquantity?: Maybe<Scalars['Float']>;
   price?: Maybe<Scalars['Float']>;
+  priceinverted?: Maybe<Scalars['Float']>;
+  sellpricebase?: Maybe<Scalars['Float']>;
+  sellpricemultiplier?: Maybe<Scalars['Float']>;
+  sellquantity?: Maybe<Scalars['Float']>;
 };
 
 /** aggregate stddev_pop on columns */
 export type Trade_Stddev_Pop_Fields = {
   __typename?: 'trade_stddev_pop_fields';
   amount?: Maybe<Scalars['Float']>;
+  amountinverted?: Maybe<Scalars['Float']>;
+  asabuy?: Maybe<Scalars['Float']>;
+  asasell?: Maybe<Scalars['Float']>;
+  buyquantity?: Maybe<Scalars['Float']>;
   price?: Maybe<Scalars['Float']>;
+  priceinverted?: Maybe<Scalars['Float']>;
+  sellpricebase?: Maybe<Scalars['Float']>;
+  sellpricemultiplier?: Maybe<Scalars['Float']>;
+  sellquantity?: Maybe<Scalars['Float']>;
 };
 
 /** aggregate stddev_samp on columns */
 export type Trade_Stddev_Samp_Fields = {
   __typename?: 'trade_stddev_samp_fields';
   amount?: Maybe<Scalars['Float']>;
+  amountinverted?: Maybe<Scalars['Float']>;
+  asabuy?: Maybe<Scalars['Float']>;
+  asasell?: Maybe<Scalars['Float']>;
+  buyquantity?: Maybe<Scalars['Float']>;
   price?: Maybe<Scalars['Float']>;
+  priceinverted?: Maybe<Scalars['Float']>;
+  sellpricebase?: Maybe<Scalars['Float']>;
+  sellpricemultiplier?: Maybe<Scalars['Float']>;
+  sellquantity?: Maybe<Scalars['Float']>;
 };
 
 /** aggregate sum on columns */
 export type Trade_Sum_Fields = {
   __typename?: 'trade_sum_fields';
   amount?: Maybe<Scalars['numeric']>;
+  amountinverted?: Maybe<Scalars['numeric']>;
+  asabuy?: Maybe<Scalars['bigint']>;
+  asasell?: Maybe<Scalars['bigint']>;
+  buyquantity?: Maybe<Scalars['bigint']>;
   price?: Maybe<Scalars['numeric']>;
+  priceinverted?: Maybe<Scalars['numeric']>;
+  sellpricebase?: Maybe<Scalars['bigint']>;
+  sellpricemultiplier?: Maybe<Scalars['bigint']>;
+  sellquantity?: Maybe<Scalars['bigint']>;
 };
 
 /** update columns of table "trade" */
@@ -3158,9 +3278,25 @@ export enum Trade_Update_Column {
   /** column name */
   Amount = 'amount',
   /** column name */
+  Amountinverted = 'amountinverted',
+  /** column name */
+  Asabuy = 'asabuy',
+  /** column name */
+  Asasell = 'asasell',
+  /** column name */
+  Buyquantity = 'buyquantity',
+  /** column name */
   Id = 'id',
   /** column name */
   Price = 'price',
+  /** column name */
+  Priceinverted = 'priceinverted',
+  /** column name */
+  Sellpricebase = 'sellpricebase',
+  /** column name */
+  Sellpricemultiplier = 'sellpricemultiplier',
+  /** column name */
+  Sellquantity = 'sellquantity',
   /** column name */
   Time = 'time'
 }
@@ -3169,21 +3305,45 @@ export enum Trade_Update_Column {
 export type Trade_Var_Pop_Fields = {
   __typename?: 'trade_var_pop_fields';
   amount?: Maybe<Scalars['Float']>;
+  amountinverted?: Maybe<Scalars['Float']>;
+  asabuy?: Maybe<Scalars['Float']>;
+  asasell?: Maybe<Scalars['Float']>;
+  buyquantity?: Maybe<Scalars['Float']>;
   price?: Maybe<Scalars['Float']>;
+  priceinverted?: Maybe<Scalars['Float']>;
+  sellpricebase?: Maybe<Scalars['Float']>;
+  sellpricemultiplier?: Maybe<Scalars['Float']>;
+  sellquantity?: Maybe<Scalars['Float']>;
 };
 
 /** aggregate var_samp on columns */
 export type Trade_Var_Samp_Fields = {
   __typename?: 'trade_var_samp_fields';
   amount?: Maybe<Scalars['Float']>;
+  amountinverted?: Maybe<Scalars['Float']>;
+  asabuy?: Maybe<Scalars['Float']>;
+  asasell?: Maybe<Scalars['Float']>;
+  buyquantity?: Maybe<Scalars['Float']>;
   price?: Maybe<Scalars['Float']>;
+  priceinverted?: Maybe<Scalars['Float']>;
+  sellpricebase?: Maybe<Scalars['Float']>;
+  sellpricemultiplier?: Maybe<Scalars['Float']>;
+  sellquantity?: Maybe<Scalars['Float']>;
 };
 
 /** aggregate variance on columns */
 export type Trade_Variance_Fields = {
   __typename?: 'trade_variance_fields';
   amount?: Maybe<Scalars['Float']>;
+  amountinverted?: Maybe<Scalars['Float']>;
+  asabuy?: Maybe<Scalars['Float']>;
+  asasell?: Maybe<Scalars['Float']>;
+  buyquantity?: Maybe<Scalars['Float']>;
   price?: Maybe<Scalars['Float']>;
+  priceinverted?: Maybe<Scalars['Float']>;
+  sellpricebase?: Maybe<Scalars['Float']>;
+  sellpricemultiplier?: Maybe<Scalars['Float']>;
+  sellquantity?: Maybe<Scalars['Float']>;
 };
 
 /** columns and relationships of "transaction" */
